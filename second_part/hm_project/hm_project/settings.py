@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from config import settings
+# from config import settings
+from dotenv import dotenv_values
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = dotenv_values()
 
 
 # Quick-start development settings - unsuitable for production
@@ -22,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-ez9o%#jnyuq2b+ddfxl733u=7i74s8qkuee$+9n8tv5)(bt(gk'
-SECRET_KEY = settings.SECRET_KEY
+SECRET_KEY = env['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,9 +88,9 @@ DATABASES = {
     'mongo': {
         'ENGINE': 'django',
         'CLIENT': {
-            'host': 'mongodb+srv://PythonDB:cud4BUXMwUmTI9A9@cluster0.zv0mgxq.mongodb.net/hm_10/',
+            'host': 'mongodb://localhost:27017/',
         },
-        'NAME': settings.db_name,
+        'NAME': env['DB_NAME'],
     }
 }
 
