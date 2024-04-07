@@ -1,4 +1,5 @@
 from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import RegisterForm
@@ -47,3 +48,6 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
         "An email with instructions to reset your password has been sent to %(email)s."
     )
     subject_template_name = "app_auth/password_reset_subject.txt"
+
+    def form_invalid(self, form):
+        return HttpResponseRedirect(reverse_lazy('password_reset_error'))
